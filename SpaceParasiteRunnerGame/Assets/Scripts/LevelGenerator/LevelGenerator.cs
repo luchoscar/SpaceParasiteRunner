@@ -18,6 +18,6 @@ public class LevelGenerator : MonoBehaviour {
 	private IEnumerator KillTrack() {
 		yield return new WaitForSeconds(5.0f);
 
-		firstSegment.transform.GetComponent<TrackSegment>().DiscardBlock();
+		firstSegment.transform.GetComponent<TrackSegment>().DiscardBlock(2.0f);
 	}
 }

@@ -122,18 +122,6 @@ public class TrackSegment : MonoBehaviour {
 		Destroy (gameObject.collider);
 		if (rearSegment)
 			rearSegment.DiscardBlock(killTime);
-	}
-
-	public void DiscardBlock(float killTime = 1.0f) {
-		if (isBeingDestroied) return;
-
-		isBeingDestroied = true;
-
-		StartCoroutine(DiscardThisBlock());
-	}
-
-	private IEnumerator DiscardThisBlock(float killTime = 1.0f) {
-		yield return new WaitForSeconds(5.0f);
 
 		StartCoroutine(DiscardThisBlock(killTime));
 	}
