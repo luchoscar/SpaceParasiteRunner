@@ -99,10 +99,17 @@ public class TrackSegment : MonoBehaviour {
 			StartCoroutine(CreateNewSegment());
 	}
 
+	void Update() {
+		if (rearSegment == null && hasBeenVisitedByPlayer == false && alreadyCreatedTrack == false) 
+			DiscardBlock();
+	}
+
 	void OnTriggerEnter(Collider other) {
 		// when ship enters trigger, redirect it and start discard coroutine for previous segment
-		if (other.gameObject.CompareTag("Player")) {
+		if (other.gameObject.CompareTag("Player") && other.transform.parent == null) {
+			hasBeenVisitedByPlayer = true;
 			other.transform.forward = transform.forward;
+			other.transform.position = transform.position;
 			if (rearSegment)
 				rearSegment.DiscardBlock();
 		}
@@ -125,11 +132,11 @@ public class TrackSegment : MonoBehaviour {
 	private IEnumerator DiscardThisBlock(float killTime = 1.0f) {
 		yield return new WaitForSeconds(killTime);
 
-		// if the player has not gone into a segment created by this, discard that segment
-		foreach(TrackSegment trackSegment in forwardSegments) {
-			if (trackSegment != null && !trackSegment.hasBeenVisitedByPlayer && rearSegment == null)
-				trackSegment.DiscardBlock(killTime);
-		}
+//		// if the player has not gone into a segment created by this, discard that segment
+//		foreach(TrackSegment trackSegment in forwardSegments) {
+//			if (trackSegment != null && !trackSegment.hasBeenVisitedByPlayer && rearSegment == null)
+//				trackSegment.DiscardBlock(killTime);
+//		}
 
 		if (gameObject)	Destroy (gameObject);
 	}
@@ -140,6 +147,7 @@ public class TrackSegment : MonoBehaviour {
 
 		if (Time.time - levelCreationTimeStamp >= TrackDuration) {
 			createSpaceDockStation = true;
+			Debug.Log("Time is up");
 		}
 		else {
 			int newSegmentCount = possibleSegmentIds.Count;

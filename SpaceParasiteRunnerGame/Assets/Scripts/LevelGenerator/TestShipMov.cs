@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class TestShipMov : MonoBehaviour {
-	public Vector3 desiredDirection;
+	public Vector3 desiredDirection = Vector3.zero;
+	public Transform ship;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -10,6 +12,7 @@ public class TestShipMov : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position += 1.0f * transform.forward * Time.deltaTime;
+		transform.position += 30.0f * transform.forward * Time.deltaTime;
+		ship.forward = transform.forward;
 	}
 }
