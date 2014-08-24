@@ -9,6 +9,6 @@ public class LifeSupportClass : ItemClass
 	void Start()
 	{
 		type = PartType.LifeSupport;
-		f_HealRate = Random.Range(10.0f, 26.0f);
+		f_HealRate = Random.Range(10.0f, 25.1f);
 	}
 }

@@ -11,7 +11,7 @@ public class HullArmorClass : ItemClass
 	void Start () 
 	{
 		type = PartType.HullArmor;
-		f_DamageResistance = Random.Range(10.0f, 26.0f);
-		f_SpeedPenalty = Random.Range(10.0f, 26.0f);
+		f_DamageResistance = Random.Range(10.0f, 25.1f);
+		f_SpeedPenalty = Random.Range(10.0f, 25.1f);
 	}
 }

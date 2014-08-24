@@ -4,7 +4,8 @@ using System.Collections;
 public class StoreClass : MonoBehaviour 
 {
 	//public Item itemScript = null;
-	GameObject ItemSpawn;	 
+	GameObject ItemSpawn;	
+	Ship ShipClass; 
 	
 	public enum ShopType
 	{
@@ -15,7 +16,7 @@ public class StoreClass : MonoBehaviour
 	}
 	
 	public ShopType shopType;
-	GameObject[] StoreInventory;
+	public GameObject[] StoreInventory;
 	GameObject[] StoreSlots;
 
 	void Start () 
@@ -47,21 +48,22 @@ public class StoreClass : MonoBehaviour
 		}
 			
 		StoreSlots = GameObject.FindGameObjectsWithTag("ShopSpot");
+		StoreInventory = new GameObject[StoreSlots.Length];
 		for(int i = 0; i < StoreSlots.Length; i++)//swap 3 for variable of amount of slots, swap vector 3 for dummyposition array
 		{
 			ItemSpawn = (GameObject)Instantiate(Resources.Load (itemType), /*new Vector3(0,0,0)*/StoreSlots[i].transform.position, Quaternion.identity);
 			ItemSpawn.GetComponent<ItemClass>().Initiate(shopType);
-			
+			StoreInventory[i]=ItemSpawn;
 		}
 		//itemScript = new Item();
 		//itemScript.doSomething();
-		CreateInventory();
+		//CreateInventory();
 	}
 
-	void Update () 
-	{
-		//needed?
-	}
+//	void Update () 
+//	{
+//		//needed?
+//	}
 	
 	
 	void CompareStoreAndShip()
@@ -76,8 +78,8 @@ public class StoreClass : MonoBehaviour
 	}
 	
 	
-	void CreateInventory()
-	{
-		
-	}
+//	void CreateInventory()
+//	{
+//		
+//	}
 }

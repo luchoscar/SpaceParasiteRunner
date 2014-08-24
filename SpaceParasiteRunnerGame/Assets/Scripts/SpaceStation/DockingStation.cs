@@ -8,10 +8,15 @@ public class DockingStationScript : MonoBehaviour
 	//selected store	
 	//environmental hazard level
 	//ship
+	Human[] humanClass;
+	Ship shipClass;
+	
+	float f_HazardLevel;
 
 	void Start () 
 	{
-		
+		f_HazardLevel = Random.Range(0.0f, 10.1f);
+		humanClass = Get
 	}
 	
 

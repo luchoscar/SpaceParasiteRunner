@@ -13,9 +13,9 @@ public class EngineClass : ItemClass
 	void Start()
 	{
 		type = PartType.Engine;
-		f_Thrust = Random.Range(10.0f, 26.0f);
-		f_FuelUsage = Random.Range(10.0f, 26.0f);
-		f_FuelStorageMax = Random.Range(10.0f, 26.0f);
-		f_FuelCurrent = Random.Range(10.0f, 26.0f);
+		f_Thrust = Random.Range(10.0f, 25.1f);
+		f_FuelUsage = Random.Range(10.0f, 25.1f);
+		f_FuelStorageMax = Random.Range(10.0f, 25.1f);
+		f_FuelCurrent = Random.Range(10.0f, 25.1f);
 	}
 }

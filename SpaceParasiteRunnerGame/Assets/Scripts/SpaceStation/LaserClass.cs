@@ -10,8 +10,8 @@ public class LaserClass : ItemClass
 	void Start()
 	{
 		type = PartType.Laser;
-		f_OverheatMax = Random.Range(10.0f, 26.0f);
-		f_OverheatRate = Random.Range(10.0f, 26.0f);
-		f_FireRate = Random.Range(10.0f, 26.0f);
+		f_OverheatMax = Random.Range(10.0f, 25.1f);
+		f_OverheatRate = Random.Range(10.0f, 25.1f);
+		f_FireRate = Random.Range(10.0f, 25.1f);
 	}
 }
