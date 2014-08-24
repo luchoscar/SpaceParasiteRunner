@@ -12,6 +12,7 @@ public class Ship : MonoBehaviour
 	Vector2 v2_DirectionInput;
 	float f_RotationSpeedScale;
 	float f_RotationFinalSpeed;
+	//float f_RotationSpeed;
 	//float f_VerticalSpeedScale;
 	float f_VerticalSpeed;
 	//float f_VerticalFinalSpeed;
@@ -24,6 +25,11 @@ public class Ship : MonoBehaviour
 	float f_Acceleration;
 	float f_MaxSpeed;
 	float f_Shakiness;
+
+	// Modified ship controls
+	float f_ModdedAcceleration;
+	float f_ModdedMaxSpeed;
+	float f_ModdedShakiness;
 
 	// Inherited from Ship Parts
 	float f_AccelerationShipMod;
@@ -71,8 +77,8 @@ public class Ship : MonoBehaviour
 	void Start()
 	{
 		v2_DirectionInput = new Vector2(0.0f, 0.0f);
-		f_Acceleration = 10;
-		f_MaxSpeed = 3;
+		f_Acceleration = 80;
+		f_MaxSpeed = 100;
 		f_Shakiness = 0;
 		f_MaxHeightOffset = 2;
 		//f_ForwardSpeed = 5;
@@ -90,6 +96,10 @@ public class Ship : MonoBehaviour
 		f_WeaponCooldownRate = 50;
 		f_WeaponOverheatMax = 100;
 		b_WeaponOverheated = false;
+		f_ModdedAcceleration = f_Acceleration;
+		f_ModdedMaxSpeed = f_MaxSpeed;
+		f_ModdedShakiness = f_Shakiness;
+		//f_RotationSpeed = 0;
 	}
 	
 	// Update is called once per frame
@@ -127,10 +137,14 @@ public class Ship : MonoBehaviour
 
 	void Rotate()
 	{
-		f_RotationSpeedScale = Vector3.Dot(v2_DirectionInput.x * t_Root.forward, t_RotationRoot.rigidbody.angularVelocity);
-		f_RotationFinalSpeed = Mathf.Lerp(0, f_Acceleration, (f_MaxSpeed - f_RotationSpeedScale) / f_MaxSpeed);
-		f_RotationFinalSpeed = Mathf.Clamp(f_RotationFinalSpeed, 0, f_Acceleration);
-		t_RotationRoot.rigidbody.AddTorque((v2_DirectionInput.x * t_Root.forward * f_RotationFinalSpeed) + (t_Root.forward * f_Shaking), ForceMode.Acceleration);
+		//f_RotationSpeedScale = Vector3.Dot(v2_DirectionInput.x * t_Root.forward, t_Root.forward);
+		//f_RotationFinalSpeed = Mathf.Lerp(0, f_Acceleration, (f_MaxSpeed - Mathf.Abs(f_RotationSpeedScale * f_MaxSpeed)) / f_MaxSpeed);
+		//f_RotationFinalSpeed = Mathf.Clamp(f_RotationFinalSpeed, 0, f_Acceleration);
+		f_RotationFinalSpeed = v2_DirectionInput.x * f_MaxSpeed;
+		//f_RotationSpeed += f_RotationFinalSpeed * Time.fixedDeltaTime;
+		//f_RotationSpeed -= t_RotationRoot.rigidbody.angularDrag * Time.fixedDeltaTime;
+		t_RotationRoot.localEulerAngles = new Vector3(t_RotationRoot.localEulerAngles.x, t_RotationRoot.localEulerAngles.y, t_RotationRoot.localEulerAngles.z + (f_RotationFinalSpeed * Time.fixedDeltaTime) + (f_Shaking * Time.fixedDeltaTime));
+		//t_RotationRoot.rigidbody.AddTorque((v2_DirectionInput.x * t_Root.forward * f_RotationFinalSpeed) + (t_Root.forward * f_Shaking), ForceMode.Acceleration);
 	}
 
 	void MoveVertical()
@@ -198,13 +212,45 @@ public class Ship : MonoBehaviour
 		f_MaxSpeedPilotMod = maxSpeedMod;
 		f_ShakinessPilotMod = controlMod;
 
+		f_ModdedAcceleration = f_Acceleration * f_AccelerationPilotMod;
+		f_ModdedMaxSpeed = f_MaxSpeed * f_MaxSpeedPilotMod;
+		f_ModdedShakiness = f_Shakiness * f_ShakinessPilotMod;
+	}
+	public float[] GetHumanModifiers()
+	{
+		float[] values = { f_AccelerationPilotMod, f_MaxSpeedPilotMod, f_ShakinessPilotMod };
+//		float[] values = new float[3];
+//		values = {f_AccelerationPilotMod, f_MaxSpeedPilotMod, f_ShakinessPilotMod};
+		return values;
+	}
+	
+	//public void SetShipModifiers(float accelerationMod, float maxSpeedMod, float controlMod)
+	public void SetShipEquipment(ItemClass item)
+	{
+		//RemovePart(equippedItem);
+		AddPart(item);
+//		f_AccelerationShipMod = accelerationMod;
+//		f_MaxSpeedShipMod = maxSpeedMod;
+//		f_ShakinessShipMod = controlMod;
+//
+//		f_ModdedAcceleration = f_Acceleration * f_AccelerationShipMod;
+//		f_ModdedMaxSpeed = f_MaxSpeed * f_MaxSpeedShipMod;
+//		f_ModdedShakiness = f_Shakiness * f_ShakinessShipMod;
+	}
+	public float[] GetShipModifiers()
+	{
+		float[] values = { f_AccelerationShipMod, f_MaxSpeedShipMod, f_ShakinessShipMod };
+		return values;
 	}
 
-	public void SetShipModifiers(float accelerationMod, float maxSpeedMod, float controlMod)
+	void AddPart(ItemClass item)
 	{
-		f_AccelerationShipMod = accelerationMod;
-		f_MaxSpeedShipMod = maxSpeedMod;
-		f_ShakinessShipMod = controlMod;
+
+	}
+
+	void RemovePart(ItemClass item)
+	{
+		//f_AccelerationShipMod -= item.f_SpeedPenalty;//, f_MaxSpeedShipMod, f_ShakinessShipMod
 	}
 
 	void FireWeapons()
@@ -270,6 +316,7 @@ public class Ship : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.Label(new Rect(0, 0, 250, 25), f_WeaponOverheatTotal.ToString("F3"));
+		GUI.Label(new Rect(0, 50, 250, 25), (f_RotationFinalSpeed * v2_DirectionInput.x).ToString("F3"));
 		if(b_WeaponOverheated)
 		{
 			GUI.Label(new Rect(0, 25, 250, 25), "OVERHEATING!");

@@ -83,7 +83,13 @@ public class StoreClass : MonoBehaviour
 	
 	void GetShipInfo()
 	{
-	
+		//ShipClass.GetHumanModifiers();
+		//ShipClass.GetShipModifiers();
+	}
+
+	void EquipPart(ItemClass item)
+	{
+		ShipClass.SetShipEquipment(item);
 	}
 	
 	

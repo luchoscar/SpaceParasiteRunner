@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/LuisSaenz/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Users/vgpstudent/Desktop/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/LuisSaenz/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Users/vgpstudent/Desktop/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +74,8 @@
      <Compile Include="Assets\Scripts\SpaceStation\ItemClass.cs" />
      <Compile Include="Assets\Scripts\SpaceStation\LaserClass.cs" />
      <Compile Include="Assets\Scripts\SpaceStation\LifeSupportClass.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\MapControls.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\MapNode.cs" />
      <Compile Include="Assets\Scripts\SpaceStation\StoreClass.cs" />
      <Compile Include="Assets\Scripts\Tests\Tester.cs" />
      <None Include="Assets\Shaders\Shaders\RampDiffuse.shader" />
