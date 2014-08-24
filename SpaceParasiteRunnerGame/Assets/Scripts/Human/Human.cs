@@ -177,8 +177,8 @@ public class Human : MonoBehaviour {
 	/// <summary>
 	/// Get human target to infect
 	/// </summary>
-	/// <param name="target">Target.</param>
-	private void InfectTarget(Transform target) {
+	/// <param name="target">Transform of target to infect.</param>
+	public void InfectTarget(Transform target) {
 		target.GetComponent<Human>().GetInfected();
 	}
 	
@@ -212,6 +212,24 @@ public class Human : MonoBehaviour {
 	public void SetShipStats(List<float> In_shipStats, List<float> In_lifeSupport) {
 		shipStats = In_shipStats;
 		lifeSupport = In_lifeSupport;
+	}
+
+	/// <summary>
+	/// Updates the ship stats.
+	/// </summary>
+	/// <param name="index">Index to update.</param>
+	/// <param name="value">Value to update to.</param>
+	public void UpdateShipStats(int index, float value) {
+		shipStats[index] = value;
+	}
+
+	/// <summary>
+	/// Updates the life support stats.
+	/// </summary>
+	/// <param name="index">Index to update.</param>
+	/// <param name="value">Value to update to.</param>
+	public void UpdateLifeSupportStats(int index, float value) {
+		lifeSupport[index] = value;
 	}
 	#endregion
 }
