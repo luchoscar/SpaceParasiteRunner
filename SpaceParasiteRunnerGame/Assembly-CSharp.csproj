@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/LuisSaenz/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Users/student/Desktop/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/LuisSaenz/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Users/student/Desktop/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -52,17 +52,24 @@
      <Compile Include="Assets\Scripts\BaseObjects\HealthPickup.cs" />
      <Compile Include="Assets\Scripts\BaseObjects\MineralPickup.cs" />
      <Compile Include="Assets\Scripts\CollisionForwarder.cs" />
-     <Compile Include="Assets\Scripts\Currency.cs" />
+     <Compile Include="Assets\Scripts\Currency\Currency.cs" />
      <Compile Include="Assets\Scripts\FaceSegment.cs" />
      <Compile Include="Assets\Scripts\GameEvents.cs" />
      <Compile Include="Assets\Scripts\HitEffect.cs" />
-     <Compile Include="Assets\Scripts\Human.cs" />
+     <Compile Include="Assets\Scripts\Human\Human.cs" />
      <Compile Include="Assets\Scripts\PickupType.cs" />
      <Compile Include="Assets\Scripts\Segment.cs" />
-     <Compile Include="Assets\Scripts\Ship.cs" />
+     <Compile Include="Assets\Scripts\Ship\Ship.cs" />
+     <Compile Include="Assets\Scripts\Ship\Weapon.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\DockingStation.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\EngineClass.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\HullArmorClass.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\ItemClass.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\LaserClass.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\LifeSupportClass.cs" />
+     <Compile Include="Assets\Scripts\SpaceStation\StoreClass.cs" />
      <Compile Include="Assets\Scripts\Tests\Tester.cs" />
-     <Compile Include="Assets\Scripts\Weapon.cs" />
      <None Include="Assets\Shaders\RampDiffuse.shader" />
      <None Include="Assets\Shaders\RampNormal.shader" />
   </ItemGroup>
