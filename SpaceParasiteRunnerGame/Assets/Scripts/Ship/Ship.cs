@@ -18,6 +18,7 @@ public class Ship : MonoBehaviour
 	float f_Shaking;
 	float f_MaxHeightOffset;
 	float f_ForwardSpeed;
+	float f_TriggerTimeout;
 
 	// Baseline ship controls
 	float f_Acceleration;
@@ -75,7 +76,7 @@ public class Ship : MonoBehaviour
 		f_Shakiness = 0;
 		f_MaxHeightOffset = 2;
 		//f_ForwardSpeed = 5;
-		f_ForwardSpeed = 0;
+		f_ForwardSpeed = 30;
 		f_VerticalSpeed = 3;
 		t_RotationRoot.rigidbody.maxAngularVelocity = f_MaxSpeed * 2;
 		foreach(Transform child in transform)
@@ -86,7 +87,7 @@ public class Ship : MonoBehaviour
 			}
 		}
 		f_WeaponOverheatDelay = 0.75f;
-		f_WeaponCooldownRate = 30;
+		f_WeaponCooldownRate = 50;
 		f_WeaponOverheatMax = 100;
 		b_WeaponOverheated = false;
 	}
@@ -100,7 +101,7 @@ public class Ship : MonoBehaviour
 
 		if(!b_WeaponOverheated && f_WeaponOverheatTotal > f_WeaponOverheatMax)
 		{
-			StartCoroutine(WeaponOverheat(f_WeaponOverheatDelay * 3));
+			StartCoroutine(WeaponOverheat(f_WeaponOverheatDelay * 6));
 		}
 		if(!b_WeaponOverheated && f_WeaponOverheatDelay < Time.time - f_LastShotFired && f_WeaponOverheatTotal > 0)
 		{
@@ -238,9 +239,14 @@ public class Ship : MonoBehaviour
 
 	}
 
-	public void ChangeDirection(Vector3 newDirection)
+	public void ChangeDirection(Quaternion newDirection)
 	{
-		t_RotationRoot.eulerAngles = newDirection;
+		//print (Time.time + " --- " + f_TriggerTimeout);
+		if(f_TriggerTimeout < Time.time - 1.0f)
+		{
+			t_Root.rotation = newDirection;
+			f_TriggerTimeout = Time.time;
+		}
 	}
 
 	IEnumerator WeaponOverheat(float cooldownDelay)
@@ -251,9 +257,23 @@ public class Ship : MonoBehaviour
 		b_WeaponOverheated = false;
 	}
 
+//	void OnTriggerEnter(Collider other)
+//	{
+//		if(other.CompareTag("Segment"))
+//		{
+//			Ship player = other.GetComponent<Ship>();
+//			//player.ChangeDirection(Direction.forward);
+//			player.ChangeDirection(transform.position - other.transform.position);
+//		}
+//	}
+
 	void OnGUI()
 	{
 		GUI.Label(new Rect(0, 0, 250, 25), f_WeaponOverheatTotal.ToString("F3"));
+		if(b_WeaponOverheated)
+		{
+			GUI.Label(new Rect(0, 25, 250, 25), "OVERHEATING!");
+		}
 	}
 
 	void OnCollisionEnter(Collision other)
