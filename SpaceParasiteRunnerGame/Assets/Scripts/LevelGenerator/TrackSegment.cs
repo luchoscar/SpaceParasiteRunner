@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TrackSegment : MonoBehaviour {
-<<<<<<< HEAD
+	/*
 	private static float levelCreationTimeStamp;			// time in which this level was created.  Once certain amount of time has passed
 															// the space dock station will be generated
 	private TrackSegment rearSegment;						// segment that created this segment, it is attached to the rear of this segment
@@ -15,11 +15,7 @@ public class TrackSegment : MonoBehaviour {
 															// one object to attempt to destroy it
 	public bool hasBeenVisitedByPlayer {private set; get;}	// flag indicating that the player has visited this segment in order to start 
 															// discard sequence once the rear segment is being discard
-
-	// Use this for initialization
-	void Start () {
-	
-=======
+	*/
 	public enum SegmentType {
 		NONE = -1,
 		STRAIGHT = 0,
@@ -107,7 +103,6 @@ public class TrackSegment : MonoBehaviour {
 		}
 
 		StartCoroutine(CreateNewSegment());
->>>>>>> origin/master
 	}
 	
 	// Update is called once per frame
@@ -118,49 +113,38 @@ public class TrackSegment : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		// when ship enters trigger, redirect it and start discard coroutine for previous segment
 		if (other.gameObject.CompareTag("Player")) {
-<<<<<<< HEAD
 			other.transform.forward = transform.forward;
 			rearSegment.DiscardBlock();
 		}
 	}
 
-	public void DiscardBlock() {
-=======
-			Destroy (gameObject.collider);
-			other.transform.forward = transform.forward;
-			if (rearSegment)
-				rearSegment.DiscardBlock();
-		}
+	public void DiscardBlock(float killTime = 1.0f) {
+		Destroy (gameObject.collider);
+		if (rearSegment)
+			rearSegment.DiscardBlock(killTime);
 	}
 
 	public void DiscardBlock(float killTime = 1.0f) {
->>>>>>> origin/master
 		if (isBeingDestroied) return;
 
 		isBeingDestroied = true;
 
-<<<<<<< HEAD
 		StartCoroutine(DiscardThisBlock());
 	}
 
-	private IEnumerator DiscardThisBlock() {
+	private IEnumerator DiscardThisBlock(float killTime = 1.0f) {
 		yield return new WaitForSeconds(5.0f);
-=======
+
 		StartCoroutine(DiscardThisBlock(killTime));
 	}
 
 	private IEnumerator DiscardThisBlock(float killTime = 1.0f) {
 		yield return new WaitForSeconds(killTime);
->>>>>>> origin/master
 
 		// if the player has not gone into a segment created by this, discard that segment
 		foreach(TrackSegment trackSegment in forwardSegments) {
 			if (!trackSegment.hasBeenVisitedByPlayer)
-<<<<<<< HEAD
 				trackSegment.DiscardBlock();
-=======
-				trackSegment.DiscardBlock(3.0f);
->>>>>>> origin/master
 		}
 
 		if (gameObject)	Destroy (gameObject);
@@ -171,8 +155,6 @@ public class TrackSegment : MonoBehaviour {
 
 		if (Time.time - levelCreationTimeStamp >= 30.0f) {
 			// TODO: create dock station in order for ship to 
-<<<<<<< HEAD
-=======
 			Debug.Log("Time to create space dock station");
 		}
 		else {
@@ -188,7 +170,6 @@ public class TrackSegment : MonoBehaviour {
 				forwardSegments.Add(newSegment.GetComponent<TrackSegment>());
 				Connections.Add((SegmentType)nextIndex);
             }
->>>>>>> origin/master
 		}
 	}
 }

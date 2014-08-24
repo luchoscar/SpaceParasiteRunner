@@ -1,18 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-<<<<<<< HEAD
-
-public class LevelGenerator : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-=======
 using System.Collections.Generic;
 
 public class LevelGenerator : MonoBehaviour {
@@ -32,7 +19,5 @@ public class LevelGenerator : MonoBehaviour {
 		yield return new WaitForSeconds(5.0f);
 
 		firstSegment.transform.GetComponent<TrackSegment>().DiscardBlock();
-
->>>>>>> origin/master
 	}
 }
