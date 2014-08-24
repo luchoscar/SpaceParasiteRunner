@@ -5,15 +5,24 @@ using System.Collections.Generic;
 public class MapNode : MonoBehaviour
 {
 	public GameObject[] neighbors;
-	Stack<Vector3> path = new Stack<Vector3>();
 
 	public GameObject[] GetNeighbors()
 	{
 		return neighbors;
 	}
 
-	public Stack<Vector3> BuildPath(GameObject Destination)
+	public Stack<Vector3> BuildPath(GameObject Start, GameObject Destination)
 	{
+		Stack<Vector3> path = new Stack<Vector3>();
+		if(Destination == Start)
+		{
+			path.Push(Destination.transform.position);
+			return path;
+		}
+		else
+		{
+
+		}
 		return path;
 	}
 
