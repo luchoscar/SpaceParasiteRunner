@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{D60FECE4-43AF-6EB0-BDC5-025422F1AF2D}</ProjectGuid>
+	<ProjectGuid>{6B9D6167-A00D-ADAF-D3AE-326621A3BE71}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,8 +46,25 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BaseObjects\Asteroid.cs" />
+     <Compile Include="Assets\Scripts\BaseObjects\BaseObject.cs" />
+     <Compile Include="Assets\Scripts\BaseObjects\FuelPickup.cs" />
+     <Compile Include="Assets\Scripts\BaseObjects\HealthPickup.cs" />
+     <Compile Include="Assets\Scripts\BaseObjects\MineralPickup.cs" />
+     <Compile Include="Assets\Scripts\CollisionForwarder.cs" />
      <Compile Include="Assets\Scripts\Currency.cs" />
+     <Compile Include="Assets\Scripts\FaceSegment.cs" />
+     <Compile Include="Assets\Scripts\GameEvents.cs" />
+     <Compile Include="Assets\Scripts\HitEffect.cs" />
      <Compile Include="Assets\Scripts\Human.cs" />
+     <Compile Include="Assets\Scripts\PickupType.cs" />
+     <Compile Include="Assets\Scripts\Segment.cs" />
+     <Compile Include="Assets\Scripts\Ship.cs" />
+     <Compile Include="Assets\Scripts\Shot.cs" />
+     <Compile Include="Assets\Scripts\Tests\Tester.cs" />
+     <Compile Include="Assets\Scripts\Weapon.cs" />
+     <None Include="Assets\Shaders\RampDiffuse.shader" />
+     <None Include="Assets\Shaders\RampNormal.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
