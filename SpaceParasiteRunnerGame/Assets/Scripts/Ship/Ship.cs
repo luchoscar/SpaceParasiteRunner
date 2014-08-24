@@ -25,6 +25,11 @@ public class Ship : MonoBehaviour
 	float f_MaxSpeed;
 	float f_Shakiness;
 
+	// Modified ship controls
+	float f_ModdedAcceleration;
+	float f_ModdedMaxSpeed;
+	float f_ModdedShakiness;
+
 	// Inherited from Ship Parts
 	float f_AccelerationShipMod;
 	float f_MaxSpeedShipMod;
@@ -90,6 +95,9 @@ public class Ship : MonoBehaviour
 		f_WeaponCooldownRate = 50;
 		f_WeaponOverheatMax = 100;
 		b_WeaponOverheated = false;
+		f_ModdedAcceleration = f_Acceleration;
+		f_ModdedMaxSpeed = f_MaxSpeed;
+		f_ModdedShakiness = f_Shakiness;
 	}
 	
 	// Update is called once per frame
@@ -198,13 +206,45 @@ public class Ship : MonoBehaviour
 		f_MaxSpeedPilotMod = maxSpeedMod;
 		f_ShakinessPilotMod = controlMod;
 
+		f_ModdedAcceleration = f_Acceleration * f_AccelerationPilotMod;
+		f_ModdedMaxSpeed = f_MaxSpeed * f_MaxSpeedPilotMod;
+		f_ModdedShakiness = f_Shakiness * f_ShakinessPilotMod;
+	}
+	public float[] GetHumanModifiers()
+	{
+		float[] values = { f_AccelerationPilotMod, f_MaxSpeedPilotMod, f_ShakinessPilotMod };
+//		float[] values = new float[3];
+//		values = {f_AccelerationPilotMod, f_MaxSpeedPilotMod, f_ShakinessPilotMod};
+		return values;
+	}
+	
+	//public void SetShipModifiers(float accelerationMod, float maxSpeedMod, float controlMod)
+	public void SetShipEquipment(ItemClass item)
+	{
+		//RemovePart(equippedItem);
+		AddPart(item);
+//		f_AccelerationShipMod = accelerationMod;
+//		f_MaxSpeedShipMod = maxSpeedMod;
+//		f_ShakinessShipMod = controlMod;
+//
+//		f_ModdedAcceleration = f_Acceleration * f_AccelerationShipMod;
+//		f_ModdedMaxSpeed = f_MaxSpeed * f_MaxSpeedShipMod;
+//		f_ModdedShakiness = f_Shakiness * f_ShakinessShipMod;
+	}
+	public float[] GetShipModifiers()
+	{
+		float[] values = { f_AccelerationShipMod, f_MaxSpeedShipMod, f_ShakinessShipMod };
+		return values;
 	}
 
-	public void SetShipModifiers(float accelerationMod, float maxSpeedMod, float controlMod)
+	void AddPart(ItemClass item)
 	{
-		f_AccelerationShipMod = accelerationMod;
-		f_MaxSpeedShipMod = maxSpeedMod;
-		f_ShakinessShipMod = controlMod;
+
+	}
+
+	void RemovePart(ItemClass item)
+	{
+		//f_AccelerationShipMod -= item.f_SpeedPenalty;//, f_MaxSpeedShipMod, f_ShakinessShipMod
 	}
 
 	void FireWeapons()

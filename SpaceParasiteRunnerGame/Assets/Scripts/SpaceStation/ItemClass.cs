@@ -12,6 +12,7 @@ public class ItemClass : MonoBehaviour
 		HullArmor,
 		LifeSupport
 	}
+	public GameObject model;
 	public PartType type = PartType.None;
 	public float f_StorePrice = 0.0f;
 	bool b_IsHighlighted;
