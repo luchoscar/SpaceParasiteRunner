@@ -57,6 +57,9 @@
      <Compile Include="Assets\Scripts\GameEvents.cs" />
      <Compile Include="Assets\Scripts\HitEffect.cs" />
      <Compile Include="Assets\Scripts\Human\Human.cs" />
+     <Compile Include="Assets\Scripts\LevelGenerator\LevelGenerator.cs" />
+     <Compile Include="Assets\Scripts\LevelGenerator\TestShipMov.cs" />
+     <Compile Include="Assets\Scripts\LevelGenerator\TrackSegment.cs" />
      <Compile Include="Assets\Scripts\PickupType.cs" />
      <Compile Include="Assets\Scripts\Segment.cs" />
      <Compile Include="Assets\Scripts\Ship\Ship.cs" />

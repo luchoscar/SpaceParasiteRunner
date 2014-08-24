@@ -3,19 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TrackSegment : MonoBehaviour {
-	/*
-	private static float levelCreationTimeStamp;			// time in which this level was created.  Once certain amount of time has passed
-															// the space dock station will be generated
-	private TrackSegment rearSegment;						// segment that created this segment, it is attached to the rear of this segment
-	private TrackSegment [] forwardSegments;				// all segments that are attached to the front of this segment
-	[SerializeField] public int idType {private set; get;}	// id use to know which group this segment belongs
-	[SerializeField] public int [] possibleSegmentIds;		// array of possible segment ids this block can attach to at the end
-	private Transform [] nextSegmentPositions;				// positions where the next segments will be places
-	private bool isBeingDestroied = false;					// flag indicating this segment is being destoied in order to prevent more than
-															// one object to attempt to destroy it
-	public bool hasBeenVisitedByPlayer {private set; get;}	// flag indicating that the player has visited this segment in order to start 
-															// discard sequence once the rear segment is being discard
-	*/
+	public static float TrackDuration;
 	public enum SegmentType {
 		NONE = -1,
 		STRAIGHT = 0,
@@ -31,7 +19,7 @@ public class TrackSegment : MonoBehaviour {
 		ANY = 10
 	}
 	public SegmentType segmentType = SegmentType.NONE;						// type of segment, this is use to decide which segments will be created at its ends
-	private static float levelCreationTimeStamp;							// time in which this level was created.  Once certain amount of time has passed
+	public static float levelCreationTimeStamp;								// time in which this level was created.  Once certain amount of time has passed
 																			// the space dock station will be generated
 	public TrackSegment rearSegment;										// segment that created this segment, it is attached to the rear of this segment
 	public List<TrackSegment> forwardSegments = new List<TrackSegment>();	// all segments that are attached to the front of this segment
@@ -45,12 +33,11 @@ public class TrackSegment : MonoBehaviour {
 
 	public static List<GameObject> AllPossibleSegments;
 	[SerializeField] public List<SegmentType> Connections = new List<SegmentType>();
-	[SerializeField] private float splitPercentProbability = 0.2f;
-
+	[SerializeField] private float splitPercentProbability = 0.15f;
+	private bool createSpaceDockStation = false;
+	public bool alreadyCreatedTrack = false;
 	// Use this for initialization
 	void Awake () {
-		levelCreationTimeStamp = Time.time;
-
 		possibleSegmentIds = new List<int>();
 		switch(segmentType) {
 		case SegmentType.NONE:
@@ -102,7 +89,8 @@ public class TrackSegment : MonoBehaviour {
 			break;
 		}
 
-		StartCoroutine(CreateNewSegment());
+		if (!alreadyCreatedTrack)
+			StartCoroutine(CreateNewSegment());
 	}
 	
 	// Update is called once per frame
@@ -115,6 +103,11 @@ public class TrackSegment : MonoBehaviour {
 		if (other.gameObject.CompareTag("Player")) {
 			other.transform.forward = transform.forward;
 			rearSegment.DiscardBlock();
+		}
+
+		if (createSpaceDockStation && hasBeenVisitedByPlayer && forwardSegments.Count == 0) {
+			// TODO: Create space dock station
+			Debug.Log("Creating Space Dock");
 		}
 	}
 
@@ -139,11 +132,10 @@ public class TrackSegment : MonoBehaviour {
 	}
 
 	private IEnumerator CreateNewSegment() {
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(0.5f);
 
-		if (Time.time - levelCreationTimeStamp >= 30.0f) {
-			// TODO: create dock station in order for ship to 
-			Debug.Log("Time to create space dock station");
+		if (Time.time - levelCreationTimeStamp >= TrackDuration) {
+			createSpaceDockStation = true;
 		}
 		else {
 			int newSegmentCount = possibleSegmentIds.Count;
