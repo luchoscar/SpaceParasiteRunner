@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TestShipMov : MonoBehaviour {
-
+	public Vector3 desiredDirection;
 	// Use this for initialization
 	void Start () {
 	
