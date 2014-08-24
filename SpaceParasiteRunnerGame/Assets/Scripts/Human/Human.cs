@@ -204,6 +204,33 @@ public class Human : MonoBehaviour {
 	#endregion
 	
 	#region StatsFunctions
+	private void CreateHuman() {
+		parasiteResistance = Random.Range(0.1f, 0.9f);
+
+		float skillMod = 1.0f - parasiteResistance;
+
+		float low = 0.0f, high = 0.25f;
+
+		if (skillMod < 0.25f) {
+			low = 0.75f; 
+			high = 1.0f;
+		}
+		else if (skillMod < 0.5f) {
+			low = 0.5f; 
+			high = 0.75f;
+		}
+		else if (skillMod < 0.75f) {
+			low = 0.25f; 
+			high = 0.5f;
+		}
+
+		for(int i = 0; i < 3; i++) {
+			float skill = Random.Range(low, high);
+			if (skill >= 0.75f * high) high *= 0.75f;
+			humanStats.Add(skill);
+		}
+	}
+
 	/// <summary>
 	/// Sets the ship stats and life support stats.
 	/// </summary>

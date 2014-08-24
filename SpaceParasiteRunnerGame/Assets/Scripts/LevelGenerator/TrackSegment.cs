@@ -127,7 +127,7 @@ public class TrackSegment : MonoBehaviour {
 
 		// if the player has not gone into a segment created by this, discard that segment
 		foreach(TrackSegment trackSegment in forwardSegments) {
-			if (!trackSegment.hasBeenVisitedByPlayer && rearSegment == null)
+			if (trackSegment != null && !trackSegment.hasBeenVisitedByPlayer && rearSegment == null)
 				trackSegment.DiscardBlock(killTime);
 		}
 
