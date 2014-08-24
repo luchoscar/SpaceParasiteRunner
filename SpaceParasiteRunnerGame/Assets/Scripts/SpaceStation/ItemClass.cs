@@ -14,11 +14,12 @@ public class ItemClass : MonoBehaviour
 	}
 	public PartType type = PartType.None;
 	public float f_StorePrice = 0.0f;
+	bool b_IsHighlighted;
 	
 	// Use this for initialization
 	void Start () 
 	{
-		
+		b_IsHighlighted = false;
 	}
 	
 	// Update is called once per frame
@@ -52,5 +53,15 @@ public class ItemClass : MonoBehaviour
 	{
 		Debug.Log("Do Something Has been called");
 	}	
+	
+	void OnMouseOver()
+	{
+		
+	}
+	
+	void OnGUI()
+	{
+		
+	}
 }
 

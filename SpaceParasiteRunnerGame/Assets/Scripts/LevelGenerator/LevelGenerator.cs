@@ -22,8 +22,5 @@ public class LevelGenerator : MonoBehaviour {
 		TrackSegment.AllPossibleSegments = AllPossibleSegments;
 		TrackSegment.TrackDuration = levelTime;
 		TrackSegment.levelCreationTimeStamp = Time.time;
-		firstSegment = (GameObject) Instantiate(AllPossibleSegments[0], Vector3.zero, Quaternion.identity);
-		
-		//StartCoroutine(KillTrack());
 	}
 }

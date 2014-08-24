@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\SpaceStation\StoreClass.cs" />
      <Compile Include="Assets\Scripts\Tests\Tester.cs" />
      <None Include="Assets\Shaders\RampDiffuse.shader" />
+     <None Include="Assets\Prefabs\TrackSegments\TrackBorder.shader" />
      <None Include="Assets\Shaders\RampNormal.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

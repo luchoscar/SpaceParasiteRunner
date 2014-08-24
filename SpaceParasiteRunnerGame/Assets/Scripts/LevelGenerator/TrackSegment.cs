@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TrackSegment : MonoBehaviour {
+	#region Variables
 	public static float TrackDuration;
 	public enum SegmentType {
 		NONE = -1,
@@ -24,7 +25,7 @@ public class TrackSegment : MonoBehaviour {
 	public TrackSegment rearSegment;										// segment that created this segment, it is attached to the rear of this segment
 	public List<TrackSegment> forwardSegments = new List<TrackSegment>();	// all segments that are attached to the front of this segment
 	[SerializeField] public int idType {private set; get;}					// id use to know which group this segment belongs
-	private List<int> possibleSegmentIds;									// array of possible segment ids this block can attach to at the end
+	public List<int> possibleSegmentIds;									// array of possible segment ids this block can attach to at the end
 	[SerializeField] private Transform [] nextSegmentPositions;				// positions where the next segments will be places
 	private bool isBeingDestroied = false;									// flag indicating this segment is being destoied in order to prevent more than
 																			// one object to attempt to destroy it
@@ -36,6 +37,9 @@ public class TrackSegment : MonoBehaviour {
 	[SerializeField] private float splitPercentProbability = 0.15f;
 	private bool createSpaceDockStation = false;
 	public bool alreadyCreatedTrack = false;
+	#endregion
+
+	#region UnityFunctions
 	// Use this for initialization
 	void Awake () {
 		possibleSegmentIds = new List<int>();
@@ -88,21 +92,19 @@ public class TrackSegment : MonoBehaviour {
 				possibleSegmentIds.Add(i);
 			break;
 		}
-
-		if (!alreadyCreatedTrack)
-			StartCoroutine(CreateNewSegment());
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void Start() {
+		if (alreadyCreatedTrack == false)
+			StartCoroutine(CreateNewSegment());
 	}
 
 	void OnTriggerEnter(Collider other) {
 		// when ship enters trigger, redirect it and start discard coroutine for previous segment
 		if (other.gameObject.CompareTag("Player")) {
 			other.transform.forward = transform.forward;
-			rearSegment.DiscardBlock();
+			if (rearSegment)
+				rearSegment.DiscardBlock();
 		}
 
 		if (createSpaceDockStation && hasBeenVisitedByPlayer && forwardSegments.Count == 0) {
@@ -110,13 +112,14 @@ public class TrackSegment : MonoBehaviour {
 			Debug.Log("Creating Space Dock");
 		}
 	}
-
+	#endregion
 	public void DiscardBlock(float killTime = 1.0f) {
 		Destroy (gameObject.collider);
-		if (rearSegment)
+		if (rearSegment) {
 			rearSegment.DiscardBlock(killTime);
-
-		StartCoroutine(DiscardThisBlock(killTime));
+		}
+		else
+			StartCoroutine(DiscardThisBlock(killTime));
 	}
 
 	private IEnumerator DiscardThisBlock(float killTime = 1.0f) {
@@ -124,15 +127,16 @@ public class TrackSegment : MonoBehaviour {
 
 		// if the player has not gone into a segment created by this, discard that segment
 		foreach(TrackSegment trackSegment in forwardSegments) {
-			if (!trackSegment.hasBeenVisitedByPlayer)
-				trackSegment.DiscardBlock();
+			if (!trackSegment.hasBeenVisitedByPlayer && rearSegment == null)
+				trackSegment.DiscardBlock(killTime);
 		}
 
 		if (gameObject)	Destroy (gameObject);
 	}
 
 	private IEnumerator CreateNewSegment() {
-		yield return new WaitForSeconds(0.5f);
+
+		yield return new WaitForSeconds(5.0f);
 
 		if (Time.time - levelCreationTimeStamp >= TrackDuration) {
 			createSpaceDockStation = true;
