@@ -201,14 +201,6 @@ public class Human : MonoBehaviour {
 		
 		return humanInfected[index];
 	}
-
-	/// <summary>
-	/// Remove and infested human from the list of infested humans
-	/// </summary>
-	/// <param name="index">Index.</param>
-	public void ReleaseInfected(int index) {
-		humanInfected.RemoveAt(index);
-	}
 	#endregion
 	
 	#region StatsFunctions
