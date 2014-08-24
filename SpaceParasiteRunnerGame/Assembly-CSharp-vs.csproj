@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/LuisSaenz/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Users/student/Desktop/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/LuisSaenz/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Users/student/Desktop/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +57,6 @@
      <Compile Include="Assets\Scripts\GameEvents.cs" />
      <Compile Include="Assets\Scripts\HitEffect.cs" />
      <Compile Include="Assets\Scripts\Human\Human.cs" />
-     <Compile Include="Assets\Scripts\LevelGenerator\LevelGenerator.cs" />
-     <Compile Include="Assets\Scripts\LevelGenerator\TrackSegment.cs" />
      <Compile Include="Assets\Scripts\PickupType.cs" />
      <Compile Include="Assets\Scripts\Segment.cs" />
      <Compile Include="Assets\Scripts\Ship\Ship.cs" />

@@ -16,7 +16,7 @@ public class DockingStationScript : MonoBehaviour
 	void Start () 
 	{
 		f_HazardLevel = Random.Range(0.0f, 10.1f);
-		humanClass = Get
+		//humanClass = Get
 	}
 	
 
