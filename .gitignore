@@ -1,0 +1,12 @@
+*.sln
+*.userprefs
+*.csproj
+*.pidb
+*.unityproj
+.DS_Store
+SpaceParasiteRunnerGame/Library/FileAssetImports.txt
+SpaceParasiteRunnerGame/Library/cache
+SpaceParasiteRunnerGame/Library/previews/
+SpaceParasiteRunnerGame/Library/ScriptAssemblies
+SpaceParasiteRunnerGame/obj
+SpaceParasiteRunnerGame/Temp
