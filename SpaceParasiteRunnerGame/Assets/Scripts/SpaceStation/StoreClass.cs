@@ -63,15 +63,18 @@ public class StoreClass : MonoBehaviour
 		//needed?
 	}
 	
+	
 	void CompareStoreAndShip()
 	{
 		GetShipInfo();
 	}
 	
+	
 	void GetShipInfo()
 	{
 	
 	}
+	
 	
 	void CreateInventory()
 	{

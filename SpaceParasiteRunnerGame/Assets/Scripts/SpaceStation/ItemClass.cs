@@ -26,7 +26,10 @@ public class ItemClass : MonoBehaviour
 	{
 		//needed?
 	}
-	
+	/// <summary>
+	/// Sets shop inventory type based on shop's ShopType.
+	/// </summary>
+	/// <param name="ShopType">Shop type.</param>
 	public void Initiate(StoreClass.ShopType ShopType)
 	{
 		switch(ShopType)
@@ -44,7 +47,7 @@ public class ItemClass : MonoBehaviour
 			break;
 		}
 	}
-
+	
 	public void doSomething() //test function
 	{
 		Debug.Log("Do Something Has been called");
