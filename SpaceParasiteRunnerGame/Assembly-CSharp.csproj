@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\LevelGenerator\TrackSegment.cs" />
      <Compile Include="Assets\Scripts\PickupType.cs" />
      <Compile Include="Assets\Scripts\Segment.cs" />
+     <Compile Include="Assets\Scripts\Ship\CameraTracking.cs" />
      <Compile Include="Assets\Scripts\Ship\Ship.cs" />
      <Compile Include="Assets\Scripts\Ship\Weapon.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />

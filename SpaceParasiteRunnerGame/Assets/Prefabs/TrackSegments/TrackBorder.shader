@@ -4,11 +4,16 @@
 		_MainTex ("Base (RGBA)", 2D) = "white" {}
 	}
 	SubShader {
-		Tags { "Queue"="Transparent" }
+		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
 		LOD 200
 			
 		Blend SrcAlpha OneMinusSrcAlpha
 		Cull off
+		
+		Pass {
+			ZWrite On
+			ColorMask 0
+		}
 		
 		CGPROGRAM
 		#pragma surface surf Lambert alpha
