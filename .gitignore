@@ -10,3 +10,6 @@ SpaceParasiteRunnerGame/Library/previews/
 SpaceParasiteRunnerGame/Library/ScriptAssemblies
 SpaceParasiteRunnerGame/obj
 SpaceParasiteRunnerGame/Temp
+SpaceParasiteRunnerGame/Assembly-CSharp-vs.csproj
+SpaceParasiteRunnerGame/Assembly-CSharp-vs.csproj
+*.csproj
