@@ -5,16 +5,11 @@
 		_PlayerPos ("Player Pos", Vector) = (0, 0, 0, 0)
 	}
 	SubShader {
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+		Tags { "Queue"="Transparent" }
 		LOD 200
 			
 		Blend SrcAlpha OneMinusSrcAlpha
 		Cull off
-		
-		Pass {
-			ZWrite On
-			ColorMask 0
-		}
 		
 		CGPROGRAM
 		#pragma surface surf Lambert alpha vertex:vert

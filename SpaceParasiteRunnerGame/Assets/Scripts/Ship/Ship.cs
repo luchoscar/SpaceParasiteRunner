@@ -218,7 +218,7 @@ public class Ship : MonoBehaviour
 				Physics.IgnoreCollision(shot.collider, collider);
 				Shot shotScript = shot.GetComponent<Shot>();
 				shotScript.SetDamage(w_Weapons[i].f_WeaponDamage);
-				shot.rigidbody.AddForce((t_Root.forward * f_ForwardSpeed) + (t_Root.forward * w_Weapons[i].f_ShotSpeed), ForceMode.VelocityChange);
+				shot.rigidbody.AddForce(transform.forward * w_Weapons[i].f_ShotSpeed, ForceMode.VelocityChange);
 				Destroy(shot, 7.0f);
 				w_Weapons[i].f_LastFired = Time.time;
 				f_LastShotFired = Time.time;
