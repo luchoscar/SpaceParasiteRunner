@@ -4,7 +4,7 @@ using System.Collections;
 public class PauseController : MonoBehaviour
 {
 
-	public bool b_Paused;
+	bool b_Paused = false;
 
 	// Use this for initialization
 	void Start()
