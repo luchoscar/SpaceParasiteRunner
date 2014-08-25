@@ -39,6 +39,11 @@ public class TrackSegment : MonoBehaviour {
 	public bool alreadyCreatedTrack = false;
 	#endregion
 
+	[SerializeField] public List<Transform> path;
+	Vector3 currentPoint;
+	public static Transform shipObject = null;
+	public GameObject spaceStation;
+
 	#region UnityFunctions
 	// Use this for initialization
 	void Awake () {
@@ -97,25 +102,102 @@ public class TrackSegment : MonoBehaviour {
 	void Start() {
 		if (alreadyCreatedTrack == false)
 			StartCoroutine(CreateNewSegment());
+
+		if (shipObject == null) 
+			shipObject = GameObject.Find("ShipPrefab").transform;
+
+		path = new List<Transform>();
+
+		switch(segmentType) {
+		case SegmentType.STRAIGHT:
+			path.Add(transform.FindChild("EndNode").transform);
+			break;
+		case SegmentType.SPLIT:
+			path.Add(transform.FindChild("InTrackRedirection").transform);
+			path.Add(transform.FindChild("EndNode_0").transform);
+			path.Add(transform.FindChild("EndNode_1").transform);
+			break;
+		default:
+			path.Add(transform.FindChild("InTrackRedirection").transform);
+			path.Add(transform.FindChild("EndNode").transform);
+			break;
+		}
 	}
 
 	void Update() {
 		if (rearSegment == null && hasBeenVisitedByPlayer == false && alreadyCreatedTrack == false) 
 			DiscardBlock();
+
+		if (hasBeenVisitedByPlayer && rearSegment == null) {
+			if (Vector3.Distance(shipObject.position, currentPoint) <= 1.05f) {
+				shipObject.position = currentPoint;
+				CalculateMoveDirection();
+			}
+			//else 
+				//shipObject.forward = Vector3.Slerp(shipObject.forward, (currentPoint - shipObject.position).normalized, 5.0f * Time.deltaTime);
+			//	shipObject.LookAt((currentPoint - shipObject.position).normalized);
+		}
+
+		if (path.Count > 0) {
+			Debug.DrawRay(shipObject.position + Vector3.up * 0.25f, (currentPoint - shipObject.position), Color.blue);
+			for(int i = 0; i < path.Count; i++) {
+				Vector3 origingPoint = Vector3.zero;
+				if (i == 0) {
+					origingPoint = transform.position;
+				}
+				else
+					origingPoint = path[i - 1].position;
+
+				Vector3 directionPoint = path[i].position - origingPoint;
+				Debug.DrawRay(origingPoint, directionPoint, Color.red);
+			}
+		}
+	}
+
+	private void CalculateMoveDirection() {
+		if (path.Count == 0) {
+			currentPoint = Vector3.zero;
+			return;
+		}
+
+		int index = 0;
+		bool clearPath = false;
+		if (segmentType == SegmentType.SPLIT && path.Count == 2) {
+			if (Random.Range(0.0f, 1.0f) > 0.5f) index = 1;
+			clearPath = true;
+		}
+
+		currentPoint = path[index].position;
+		path.RemoveAt(0);
+
+		if (clearPath) path.Clear();
+
+		Vector3 direction = currentPoint - shipObject.position;
+		direction = new Vector3(direction.x, 0.0f, direction.z).normalized;
+		shipObject.forward = direction;
 	}
 
 	void OnTriggerEnter(Collider other) {
 		// when ship enters trigger, redirect it and start discard coroutine for previous segment
 		if (other.gameObject.CompareTag("Player") && other.transform.parent == null) {
 			hasBeenVisitedByPlayer = true;
-			other.transform.forward = transform.forward;
-			other.transform.position = transform.position;
+			CalculateMoveDirection();
+
+			if (rearSegment) Destroy(rearSegment.gameObject);
+			/*
+			Transform startNode = this.transform.FindChild("StartNode").transform;
+			hasBeenVisitedByPlayer = true;
+			other.transform.forward = startNode.forward;
+			other.transform.position = startNode.position;
 			if (rearSegment)
 				rearSegment.DiscardBlock();
+			*/
 		}
 
 		if (createSpaceDockStation && hasBeenVisitedByPlayer && forwardSegments.Count == 0) {
-			// TODO: Create space dock station
+			Vector3 dockPos = transform.position + 100.0f * transform.forward;
+
+			Instantiate(spaceStation, dockPos, Quaternion.identity);
 			Debug.Log("Creating Space Dock");
 		}
 	}
