@@ -80,10 +80,10 @@ public class Ship : MonoBehaviour
 		f_Acceleration = 80;
 		f_MaxSpeed = 100;
 		f_Shakiness = 0;
-		f_MaxHeightOffset = 2;
+		f_MaxHeightOffset = 15;
 		//f_ForwardSpeed = 5;
 		f_ForwardSpeed = 30;
-		f_VerticalSpeed = 3;
+		f_VerticalSpeed = 15;
 		t_RotationRoot.rigidbody.maxAngularVelocity = f_MaxSpeed * 2;
 		foreach(Transform child in transform)
 		{
@@ -264,7 +264,7 @@ public class Ship : MonoBehaviour
 				Physics.IgnoreCollision(shot.collider, collider);
 				Shot shotScript = shot.GetComponent<Shot>();
 				shotScript.SetDamage(w_Weapons[i].f_WeaponDamage);
-				shot.rigidbody.AddForce(transform.forward * w_Weapons[i].f_ShotSpeed, ForceMode.VelocityChange);
+				shot.rigidbody.AddForce((transform.forward * w_Weapons[i].f_ShotSpeed) + (transform.forward * f_ForwardSpeed), ForceMode.VelocityChange);
 				Destroy(shot, 7.0f);
 				w_Weapons[i].f_LastFired = Time.time;
 				f_LastShotFired = Time.time;
@@ -313,15 +313,15 @@ public class Ship : MonoBehaviour
 //		}
 //	}
 
-	void OnGUI()
-	{
-		GUI.Label(new Rect(0, 0, 250, 25), f_WeaponOverheatTotal.ToString("F3"));
-		GUI.Label(new Rect(0, 50, 250, 25), (f_RotationFinalSpeed * v2_DirectionInput.x).ToString("F3"));
-		if(b_WeaponOverheated)
-		{
-			GUI.Label(new Rect(0, 25, 250, 25), "OVERHEATING!");
-		}
-	}
+//	void OnGUI()
+//	{
+//		GUI.Label(new Rect(0, 0, 250, 25), f_WeaponOverheatTotal.ToString("F3"));
+//		GUI.Label(new Rect(0, 50, 250, 25), (f_RotationFinalSpeed * v2_DirectionInput.x).ToString("F3"));
+//		if(b_WeaponOverheated)
+//		{
+//			GUI.Label(new Rect(0, 25, 250, 25), "OVERHEATING!");
+//		}
+//	}
 
 	void OnCollisionEnter(Collision other)
 	{
