@@ -43,10 +43,14 @@ public class TrackSegment : MonoBehaviour {
 	Vector3 currentPoint;
 	public static Transform shipObject = null;
 	public GameObject spaceStation;
+	//public ObjectsGenerator generator;
 
 	#region UnityFunctions
 	// Use this for initialization
 	void Awake () {
+		if (gameObject.GetComponent<ObjectsGenerator>() == null)
+			gameObject.AddComponent<ObjectsGenerator>();
+
 		possibleSegmentIds = new List<int>();
 		switch(segmentType) {
 		case SegmentType.NONE:
@@ -122,6 +126,8 @@ public class TrackSegment : MonoBehaviour {
 			path.Add(transform.FindChild("EndNode").transform);
 			break;
 		}
+
+		spaceStation = (GameObject)Resources.Load("SpaceDock");
 	}
 
 	void Update() {
@@ -145,11 +151,13 @@ public class TrackSegment : MonoBehaviour {
 				if (i == 0) {
 					origingPoint = transform.position;
 				}
-				else
+				else if (path[i - 1] != null)
 					origingPoint = path[i - 1].position;
 
-				Vector3 directionPoint = path[i].position - origingPoint;
-				Debug.DrawRay(origingPoint, directionPoint, Color.red);
+				if (path.Count > 0 && path[i] != null) {
+					Vector3 directionPoint = path[i].position - origingPoint;
+					Debug.DrawRay(origingPoint, directionPoint, Color.red);
+				}
 			}
 		}
 	}
@@ -195,7 +203,7 @@ public class TrackSegment : MonoBehaviour {
 		}
 
 		if (createSpaceDockStation && hasBeenVisitedByPlayer && forwardSegments.Count == 0) {
-			Vector3 dockPos = transform.position + 100.0f * transform.forward;
+			Vector3 dockPos = transform.position + 500.0f * transform.forward;
 
 			Instantiate(spaceStation, dockPos, Quaternion.identity);
 			Debug.Log("Creating Space Dock");

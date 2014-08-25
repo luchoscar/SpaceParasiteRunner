@@ -60,8 +60,11 @@
      <Compile Include="Assets\Scripts\Human\Human.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator\InTrackRedirection.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator\LevelGenerator.cs" />
+     <Compile Include="Assets\Scripts\LevelGenerator\ObjectsGenerator.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator\TestShipMov.cs" />
      <Compile Include="Assets\Scripts\LevelGenerator\TrackSegment.cs" />
+     <Compile Include="Assets\Scripts\ObjectSpawner.cs" />
+     <Compile Include="Assets\Scripts\PauseController.cs" />
      <Compile Include="Assets\Scripts\PickupType.cs" />
      <Compile Include="Assets\Scripts\Segment.cs" />
      <Compile Include="Assets\Scripts\Ship\CameraTracking.cs" />
